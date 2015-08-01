@@ -1,0 +1,108 @@
+<!--
+    Copyright (c) 2015 Benoit Friry
+
+    This file is part of Trente30.
+
+    Trente30 is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Trente30 is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp" >
+    <TextView
+        android:id="@+id/warmup_duration_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/warmup_duration_label"
+        android:labelFor="@+id/warmup_duration_text" />
+    <EditText
+        android:id="@id/warmup_duration_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/warmup_duration_label"
+        android:layout_alignTop="@id/warmup_duration_label"
+        android:layout_marginStart="16dp"
+        android:padding="8dp"
+        android:inputType="numberDecimal"
+        android:focusable="true" />
+    <TextView
+        android:id="@+id/iteration_count_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/warmup_duration_label"
+        android:padding="8dp"
+        android:text="@string/iteration_count_label"
+        android:labelFor="@+id/iteration_count_text" />
+    <EditText
+        android:id="@id/iteration_count_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/warmup_duration_label"
+        android:layout_toEndOf="@id/iteration_count_label"
+        android:layout_alignTop="@id/iteration_count_label"
+        android:layout_alignStart="@id/warmup_duration_text"
+        android:padding="8dp"
+        android:inputType="numberDecimal"
+        android:focusable="true"/>
+    <TextView
+        android:id="@+id/fast_duration_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iteration_count_label"
+        android:padding="8dp"
+        android:text="@string/fast_label"
+        android:labelFor="@+id/fast_duration_text" />
+    <EditText
+        android:id="@id/fast_duration_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/fast_duration_label"
+        android:layout_alignTop="@id/fast_duration_label"
+        android:layout_alignStart="@id/iteration_count_text"
+        android:padding="8dp"
+        android:inputType="numberDecimal"
+        android:focusable="true"/>
+    <TextView
+        android:id="@+id/slow_duration_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fast_duration_label"
+        android:padding="8dp"
+        android:text="@string/slow_label"
+        android:labelFor="@+id/slow_duration_text" />
+    <EditText
+        android:id="@id/slow_duration_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fast_duration_text"
+        android:layout_toEndOf="@id/slow_duration_label"
+        android:layout_alignTop="@id/slow_duration_label"
+        android:layout_alignStart="@id/fast_duration_text"
+        android:padding="8dp"
+        android:inputType="numberDecimal"
+        android:focusable="true"/>
+    <Button
+        android:id="@+id/go_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slow_duration_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:padding="20dp"
+        android:text="@string/button_go"
+        android:focusable="true"
+        android:onClick="goMessage" />
+</RelativeLayout>

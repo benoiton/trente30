@@ -1,0 +1,40 @@
+<!--
+    Copyright (c) 2015 Benoit Friry
+
+    This file is part of Trente30.
+
+    Trente30 is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Trente30 is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<resources>
+    <string name="app_name">Trente30</string>
+    <string name="title_activity_main">Trente30</string>
+    <string name="title_activity_run">Run</string>
+
+    <string name="action_loadprefs">Load defaults</string>
+    <string name="action_saveprefs">Save defaults</string>
+    <string name="action_keepscreenon">Keep screen on</string>
+
+    <string name="warmup_duration_label">Warmup duration:</string>
+    <string name="iteration_count_label">Number of iterations:</string>
+    <string name="fast_duration_label">Effort duration:</string>
+    <string name="slow_duration_label">Slow duration:</string>
+    <string name="button_go">Go!</string>
+
+    <string name="warmup_label">Warmup</string>
+    <string name="iteration_label">Iteration #</string>
+    <string name="fast_label">Fast</string>
+    <string name="slow_label">Slow</string>
+    <string name="end_label">End</string>
+</resources>
