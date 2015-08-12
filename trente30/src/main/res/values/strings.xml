@@ -25,6 +25,7 @@
     <string name="action_loadprefs">Load defaults</string>
     <string name="action_saveprefs">Save defaults</string>
     <string name="action_keepscreenon">Keep screen on</string>
+    <string name="action_louder">Louder and vibration</string>
 
     <string name="warmup_duration_label">Warmup duration:</string>
     <string name="iteration_count_label">Number of iterations:</string>

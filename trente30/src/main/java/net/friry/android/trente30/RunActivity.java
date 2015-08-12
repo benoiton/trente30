@@ -50,8 +50,9 @@ public class RunActivity extends Activity {
         long fastDuration = intent.getLongExtra(MainActivity.FAST_DURATION, MainActivity.FAST_DURATION_default);
         long slowDuration = intent.getLongExtra(MainActivity.SLOW_DURATION, MainActivity.SLOW_DURATION_default);
         boolean keepScreenOn = intent.getBooleanExtra(MainActivity.KEEP_SCREEN_ON, MainActivity.KEEP_SCREEN_ON_default);
+        boolean louder = intent.getBooleanExtra(MainActivity.LOUDER, MainActivity.LOUDER_default);
 
-        Log.d(TAG, "Received intent (warmupDuration="+Long.toString(warmupDuration)+", iterationCount="+Long.toString(iterationCount)+", fastDuration="+Long.toString(fastDuration)+", slowDuration="+Long.toString(slowDuration)+", keepScreenOn="+Boolean.toString(keepScreenOn)+")");
+        Log.d(TAG, "Received intent (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration="+Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", keepScreenOn="+Boolean.toString(keepScreenOn) + ", louder=" + Boolean.toString(louder) + ")");
 
         if (keepScreenOn) {
             Log.d(TAG, "Setting screen to be kept on");
@@ -66,8 +67,9 @@ public class RunActivity extends Activity {
         countdownService.putExtra(MainActivity.ITERATION_COUNT, iterationCount);
         countdownService.putExtra(MainActivity.FAST_DURATION, fastDuration);
         countdownService.putExtra(MainActivity.SLOW_DURATION, slowDuration);
+        countdownService.putExtra(MainActivity.LOUDER, louder);
 
-        Log.d(TAG, "Starting countdown service (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ")");
+        Log.d(TAG, "Starting countdown service (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", louder=" + Boolean.toString(louder) + ")");
         startService(countdownService);
     }
 

@@ -20,18 +20,26 @@
 package net.friry.android.trente30;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.util.Log;
 
 public class CountdownService extends Service {
     private final static String TAG = "CountdownService";
     private final static boolean LOCAL_LOGV = false;
 
-    private final static float VOLUME = (float) 0.7;
+    private final static float VOLUME_NORMAL = (float) 0.6;
+    private final static float VOLUME_LOUD = (float) 1.0;
+    private float VOLUME;
+
+    private final static int VIBRATION_DURATION = 1000;
+
+    private Vibrator vibrator;
 
     public final static String COUNTDOWN_BROADCAST = "net.friry.android.trente30.countdown_broadcast";
     public final static String COUNTDOWN_STEP = "net.friry.android.trente30.countdown_step";
@@ -41,6 +49,7 @@ public class CountdownService extends Service {
     private long iterationCount;
     private long fastDuration;
     private long slowDuration;
+    private boolean loud;
 
     private SoundPool soundPool;
     private int fastSound;
@@ -66,7 +75,7 @@ public class CountdownService extends Service {
                 .setAudioAttributes(audioAttributes)
                 .build();
         */
-        Log.d(TAG, "Creating soundPool created");
+        Log.d(TAG, "Creating soundPool");
         soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         fastSound = soundPool.load(this, R.raw.fast, 1);
         slowSound = soundPool.load(this, R.raw.slow, 1);
@@ -102,8 +111,17 @@ public class CountdownService extends Service {
         iterationCount = intent.getLongExtra(MainActivity.ITERATION_COUNT, MainActivity.ITERATION_COUNT_default);
         fastDuration = intent.getLongExtra(MainActivity.FAST_DURATION, MainActivity.FAST_DURATION_default);
         slowDuration = intent.getLongExtra(MainActivity.SLOW_DURATION, MainActivity.SLOW_DURATION_default);
+        loud = intent.getBooleanExtra(MainActivity.LOUDER, MainActivity.LOUDER_default);
 
-        Log.d(TAG, "Received intent (warmupDuration="+Long.toString(warmupDuration)+", iterationCount="+Long.toString(iterationCount)+", fastDuration="+Long.toString(fastDuration)+", slowDuration="+Long.toString(slowDuration)+")");
+        Log.d(TAG, "Received intent (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", loud=" + Boolean.toString(loud) + ")");
+
+        if (loud) {
+            VOLUME = VOLUME_LOUD;
+            Log.d(TAG, "Creating vibrator");
+            vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        } else {
+            VOLUME = VOLUME_NORMAL;
+        }
 
         Log.d(TAG,"Starting steps");
         nextStep();
@@ -154,6 +172,9 @@ public class CountdownService extends Service {
         } else if (step > 1+2*iterationCount) {
             Log.d(TAG, "Playing end sound");
             soundPool.play(endSound, VOLUME, VOLUME, 0, 0, 1);
+            if (loud) {
+                vibrator.vibrate(VIBRATION_DURATION);
+            }
             Intent broadcastIntent = new Intent(COUNTDOWN_BROADCAST);
             broadcastIntent.putExtra(COUNTDOWN_STEP, 0);
             broadcastIntent.putExtra(COUNTDOWN_REMAINING_TIME, (long) 0);
@@ -172,11 +193,17 @@ public class CountdownService extends Service {
             runCountdown(fastDuration * 1000);
             Log.d(TAG, "Playing fast sound");
             soundPool.play(fastSound, VOLUME, VOLUME, 0, 0, 1 );
+            if (loud) {
+                vibrator.vibrate(VIBRATION_DURATION);
+            }
         } else if ((step - 1) % 2 == 0) {
             Log.d(TAG, "Starting countdown (duration="+slowDuration+")");
             runCountdown(slowDuration * 1000);
             Log.d(TAG, "Playing slow sound");
             soundPool.play(slowSound, VOLUME, VOLUME, 0, 0, 1 );
+            if (loud) {
+                vibrator.vibrate(VIBRATION_DURATION);
+            }
         }
     }
 }

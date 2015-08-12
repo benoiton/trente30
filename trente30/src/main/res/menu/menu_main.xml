@@ -21,4 +21,11 @@
         android:onClick="toggleScreenOnOff"
         android:checkable="true"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_louder"
+        android:title="@string/action_louder"
+        android:orderInCategory="103"
+        android:onClick="toggleLouder"
+        android:checkable="true"
+        app:showAsAction="never" />
 </menu>

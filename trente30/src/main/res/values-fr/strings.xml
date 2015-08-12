@@ -25,6 +25,7 @@
     <string name="action_loadprefs">Charger les valeurs par défaut</string>
     <string name="action_saveprefs">Enregistrer ces valeurs par défaut</string>
     <string name="action_keepscreenon">Garder l\'écran allumé</string>
+    <string name="action_louder">Son plus fort et vibration</string>
 
     <string name="warmup_duration_label">Durée d\'échauffement :</string>
     <string name="iteration_count_label">Nombre de cycles :</string>

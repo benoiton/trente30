@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public final static long SLOW_DURATION_default = 30;
     public final static String KEEP_SCREEN_ON = "net.friry.android.Trente30.KEEP_SCREEN_ON";
     public final static boolean KEEP_SCREEN_ON_default = false;
+    public final static String LOUDER = "net.friry.android.Trente30.LOUDER";
+    public final static boolean LOUDER_default = false;
 
     private EditText warmupDurationText;
     private long warmupDuration;
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
     private MenuItem keepScreenOnItem;
     private boolean keepScreenOn;
+
+    private MenuItem louderItem;
+    private boolean louder;
 
     private SharedPreferences sharedPref;
 
@@ -85,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
         keepScreenOnItem = menu.findItem(R.id.action_keepscreenon);
         keepScreenOnItem.setChecked(keepScreenOn);
+
+        louderItem = menu.findItem(R.id.action_louder);
+        louderItem.setChecked(louder);
 
         return true;
     }
@@ -118,6 +126,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void toggleLouder(MenuItem menuItem) {
+        if (LOCAL_LOGV) { Log.v(TAG, "Beginning toggleLouder"); }
+
+        if (louder) {
+            Log.d(TAG, "Receive setting: louder off");
+            louder = false;
+            menuItem.setChecked(false);
+        } else {
+            Log.d(TAG, "Receiving setting: louder on");
+            louder = true;
+            menuItem.setChecked(true);
+        }
+    }
+
     public void goMessage(View view) {
         if (LOCAL_LOGV) { Log.v(TAG, "Beginning goMessage"); }
 
@@ -129,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(FAST_DURATION, fastDuration);
         intent.putExtra(SLOW_DURATION, slowDuration);
         intent.putExtra(KEEP_SCREEN_ON, keepScreenOn);
+        intent.putExtra(LOUDER, louder);
 
         Log.d(TAG, "Starting run activity (warmupDuration="+Long.toString(warmupDuration)+", iterationCount="+Long.toString(iterationCount)+", fastDuration="+Long.toString(fastDuration)+", slowDuration="+Long.toString(slowDuration)+", keepScreenOn="+Boolean.toString(keepScreenOn)+")");
         startActivity(intent);
@@ -179,6 +202,10 @@ public class MainActivity extends AppCompatActivity {
             // At first call, from onCreate, menu is not created yet
             keepScreenOnItem.setChecked(keepScreenOn);
         }
+        if (louderItem != null) {
+            // At first call, from onCreate, menu is not created yet
+            louderItem.setChecked(louder);
+        }
     }
 
     private void getValuesFromPrefs() {
@@ -189,7 +216,8 @@ public class MainActivity extends AppCompatActivity {
         fastDuration = sharedPref.getLong(FAST_DURATION, FAST_DURATION_default);
         slowDuration = sharedPref.getLong(SLOW_DURATION, SLOW_DURATION_default);
         keepScreenOn = sharedPref.getBoolean(KEEP_SCREEN_ON, KEEP_SCREEN_ON_default);
-        Log.d(TAG, "Loaded prefs (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", keepScreenOn=" + Boolean.toString(keepScreenOn) + ")");
+        louder = sharedPref.getBoolean(LOUDER, LOUDER_default);
+        Log.d(TAG, "Loaded prefs (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", keepScreenOn=" + Boolean.toString(keepScreenOn) + ", louder=" + Boolean.toString(louder) + ")");
     }
 
     private void setValuesToPrefs() {
@@ -200,7 +228,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putLong(FAST_DURATION, fastDuration);
         editor.putLong(SLOW_DURATION, slowDuration);
         editor.putBoolean(KEEP_SCREEN_ON, keepScreenOn);
-        Log.d(TAG, "Saving prefs (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", keepScreenOn=" + Boolean.toString(keepScreenOn) + ")");
+        editor.putBoolean(LOUDER, louder);
+        Log.d(TAG, "Saving prefs (warmupDuration=" + Long.toString(warmupDuration) + ", iterationCount=" + Long.toString(iterationCount) + ", fastDuration=" + Long.toString(fastDuration) + ", slowDuration=" + Long.toString(slowDuration) + ", keepScreenOn=" + Boolean.toString(keepScreenOn) + ", louder=" + Boolean.toString(louder) + ")");
         editor.apply();
     }
 }
